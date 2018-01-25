@@ -42,28 +42,24 @@ To add your bot to Skype for Business, you must be the Tenant Administrator of a
 1. [Download and install the Skype for Business Online Connector module](http://go.microsoft.com/fwlink/?LinkId=294688)
 2. Open Windows PowerShell as Administrator and run the following:
 
-```PowerShell
-Import-PSSession (New-CsOnlineSession -Credential (Get-Credential))
-```
-
-For more information see: [Connecting to Skype for Business Online by using Windows PowerShell](https://technet.microsoft.com/en-us/library/dn362795.aspx)
-
+  ```PowerShell
+   Import-PSSession (New-CsOnlineSession -Credential (Get-Credential))
+  ```
 3.	You will be prompted with windows PowerShell credential dialog box. Sign in using the tenant admin credentials.
 
 4. Run the following PowerShell cmdlet
 
 ```PowerShell
-New-CsOnlineApplicationEndpoint 41ec7d50-ba91-1208-73ee-136b88859725 -Name NameOfTheBot -Uri sip:username@yourdomain.com
+New-CsOnlineApplicationEndpoint -ApplicationID 41ec7d50-ba91-1208-73ee-136b88859725 -Name NameOfTheBot -Uri sip:username@yourdomain.com
 ```
-
+>Note: For more information see: [Connecting to Skype for Business Online by using Windows PowerShell](https://technet.microsoft.com/en-us/library/dn362795.aspx)
+ 
 This cmdlet registers an instance of your bot with a Skype for Business Online tenant. A Skype for Business Admin can replace the **_Name_** parameter with their desired bot display name and replace the **_Uri_** parameter with a unique user account from their domain (eg. mybot@contoso.com)
 
->NOTE: A newly registered bot can take up to 8 hours to be discoverable by all users in the Skype for Business tenant. More details on using PowerShell to manage bots and apps for Skype for Business can be found [here](https://msdn.microsoft.com/en-us/skype/trusted-application-api/docs/trustedapplicationendpoint).
+>Note: A newly registered bot can take up to 8 hours to be discoverable by all users in the Skype for Business tenant. More details on using PowerShell to manage bots and apps for Skype for Business can be found [here](https://msdn.microsoft.com/en-us/skype/trusted-application-api/docs/trustedapplicationendpoint).
 
 <a name="feature-support"></a>
 ## Feature Support
-
-For a full list of current supported features please refer to the [Skype for Business Channel Inspector](https://docs.botframework.com/en-us/channel-inspector/channels/SkypeForBusiness/#navtitle).
 
 - **Messages :**
 Your bot can send plain text, HTML, and emoticons to a user or group. Users can send rich text, HTML, and emoticons to your bot.
@@ -82,8 +78,7 @@ The Skype for Business ID of a user is available for your bot, and is sent along
     "id": "sip:user@contoso.com",
     "name": "Contoso User"
   },
-  "conversation": {
-    "isGroup": true,
+  "conversation": {    "isGroup": true,
     "id": "ZmMyYmY4OGMjc2lwOmppZWluY29taW5nYm90ZXA4QDBtY29ycDJjbG91ZHBlcmYub25taWNyb3NvZnQuY2t"
   },
   "recipient": {
@@ -108,7 +103,7 @@ Skype for Business emoticons can be sent by using emoticon keyword.
 }
 ```
 - **Cards and buttons :**
-Skype for Business does not support cards and buttons in the Developer Preview.  Cards and buttons fallback to text. 
+Skype for Business does not support cards and buttons in the Developer Preview. For the Developer Preview, cards and buttons are not shown to the user if they are sent by a bot. Cards and buttons fallback to text support will be added soon.
 
 - **Groups :**
 A bot can be enabled for groups in outgoing bot scenarios.  A bot can message multiple users in a group conversation.  Skype for Business does not support adding an additional participant to a 1:1 bot conversation. 
@@ -119,7 +114,7 @@ A bot can be enabled for groups in outgoing bot scenarios.  A bot can message mu
 Skype for Business bots can initiate outbound messages to users proactively because they are enabled by a Tenant Administrator.  In order to initiate an outbound message, your bot must be Skype for Business tenant-specific (your code must be written for a bot that will only be deployed in a single tenant. Eg. bot@contoso.com). 
 
  In addition, in order to initiate an outbound message, your bot must also have the Skype for Business identity of the user or users that bot will be messaging directly eg. user@contoso.com.
-Your bot will also need to add the [Skype for Business Channel entry point URL](https://api.skypeforbusiness.com/platformservice/botframework) to the Trusted Service URLs.
+Your bot will also need to add the Skype for Business Channel entry point URL (https://api.skypeforbusiness.com/platformservice/botframework) to the Trusted Service URLs.
 Here’s a code snippet that illustrates how to initiate an outbound message to a Skype for Business user using the C# Bot Builder SDK.
 
 ```cs
@@ -157,11 +152,9 @@ The Skype for Business Bot Framework channel is currently supported for Skype fo
 1. [Download and install the Skype for Business Online Connector module](http://go.microsoft.com/fwlink/?LinkId=294688)
 2. Open Windows PowerShell as Administrator and run the following:
 
-```PowerShell
- Import-PSSession (New-CsOnlineSession -Credential (Get-Credential))
-```
-
-For more information see: [Connecting to Skype for Business Online by using Windows PowerShell](https://technet.microsoft.com/en-us/library/dn362795.aspx)
+ ```PowerShell
+  Import-PSSession (New-CsOnlineSession -Credential (Get-Credential))
+ ```
 
 3.	You will be prompted with windows PowerShell credential dialog box. Sign in using the tenant admin credentials.
 
@@ -170,5 +163,8 @@ For more information see: [Connecting to Skype for Business Online by using Wind
 ```PowerShell
 Remove -CsOnlineApplicationEndpoint -Uri sip:username@yourdomain.com
  ```
+
+>Note: For more information see: [Connecting to Skype for Business Online by using Windows PowerShell]  (https://technet.microsoft.com/en-us/library/dn362795.aspx)
+
 This command removes the instance of a bot with a Skype for Business Online tenant. A Skype for Business Admin must replace the Uri parameter with the user account from their domain (eg. mybot@contoso.com) , which they created when adding the bot.  More details on using PowerShell to manage bots and apps for Skype for Business can be found [here](https://msdn.microsoft.com/en-us/skype/trusted-application-api/docs/trustedapplicationendpoint).
 
